@@ -1,0 +1,44 @@
+@import "./fonts/fonts.css";
+@import "tailwindcss"; /* base, utils, components */
+@plugin "daisyui";
+
+@layer components {
+  .align-elements {
+    @apply mx-auto max-w-7xl px-5;
+  }
+
+  .overflow {
+    @apply fixed top-0 left-0 z-10 bottom-0 w-full flex items-center justify-center bg-black/50;
+    backdrop-filter: blur(3px);
+  }
+}
+
+html,
+body {
+  @apply h-full;
+}
+
+body {
+  @apply flex flex-col;
+}
+
+main {
+  @apply grow;
+}
+
+.splide__slide img {
+  width: 100%;
+  height: auto;
+}
+
+section {
+  @apply mb-5;
+}
+
+.price {
+  color: rgb(18, 57, 197);
+}
+
+.price_cart {
+  color: rgb(127, 77, 255);
+}
