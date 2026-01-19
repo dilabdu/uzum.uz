@@ -1,13 +1,15 @@
-import './style.css';
-import { cardUI } from './js/updateUI';
+import "./style.css";
+import { cardUI } from "./js/updateUI";
 const totalAmountEl = document.getElementById("total_amount");
-const cartCounter = document.getElementById('cart-counter')
+const cartCounter = document.getElementById("cart-counter");
 
-let basketProducts = localStorage.getItem("products") ? JSON.parse(localStorage.getItem('products')) : [];
+let likedProducts = localStorage.getItem("products")
+  ? JSON.parse(localStorage.getItem("products"))
+  : [];
 
-if (basketProducts.length) {
-  calculateBasket(basketProducts)
-  cardUI(basketProducts)
+if (likedProducts.length) {
+  calculateBasket(basketProducts);
+  cardUI(basketProducts);
 }
 
 function calculateBasket(products) {

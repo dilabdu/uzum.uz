@@ -6,19 +6,23 @@ import { request } from "./js/request";
 import { cheapestProducts } from "./js/updateUI";
 import { expensiveProducts } from "./js/updateUI";
 
-
 const date = document.querySelector("#date");
 date.textContent = new Date().getFullYear();
 
 const totalAmountEl = document.getElementById("total_amount");
-console.log(totalAmountEl)
+
 let allProducts;
-let basketProducts = localStorage.getItem("products") ? JSON.parse(localStorage.getItem('products')) : [];
+let basketProducts = localStorage.getItem("products")
+  ? JSON.parse(localStorage.getItem("products"))
+  : [];
+
+let likedProducts = localStorage.getItem("liked-products")
+  ? JSON.parse(localStorage.getItem("liked-products"))
+  : [];
 
 if (basketProducts.length) {
-  calculateBasket(basketProducts)
+  calculateBasket(basketProducts);
 }
-
 
 function calculateBasket(products) {
   let totalPrice = 0;
@@ -54,5 +58,27 @@ function buyProduct(event, el) {
     basketProducts.push({ ...item, amount: 1 });
   }
   calculateBasket(basketProducts);
-  localStorage.setItem('products', JSON.stringify(basketProducts))
+  localStorage.setItem("products", JSON.stringify(basketProducts));
+}
+window.likedProduct = likedProduct;
+function likedProduct(event, el) {
+  event.preventDefault();
+
+  let productId = el.dataset.id;
+  let item = allProducts.find((product) => product.id == productId);
+  console.log(item);
+  let search = likedProducts.find((p) => p.id == item.id);
+  if (search) {
+    likedProducts = likedProducts.filter((p) => {
+      return p.id !== item.id;
+    });
+    el.classList.remove("btn-primary");
+    el.classList.add("btn-outline");
+  } else {
+    likedProducts.push(item);
+    el.classList.add("btn-primary");
+    el.classList.remove("btn-outline");
+  }
+  calculateBasket(basketProducts);
+  localStorage.setItem("liked-products", JSON.stringify(likedProducts));
 }

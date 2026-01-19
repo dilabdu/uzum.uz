@@ -116,9 +116,14 @@
                         src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                         alt="Shoes"
                       />
-                      <i
-                        class="far fa-heart like-btn absolute top-2 right-3 rounded-full p-3 transition"
-                      ></i>
+                      <button
+                        onclick="likedProduct(event, this)"
+                        class="btn liked-button absolute btn-ghost inline-block top-1 right-1 btn-sm btn-outline"
+                      >
+                        <i
+                          class="far fa-heart like-btn backdrop-blur rounded-full transition"
+                        ></i>
+                      </button>
                     </figure>
                     <div class="card-body">
                       <h2 class="card-title line-clamp-1">Card Title</h2>
@@ -144,7 +149,7 @@
                       <div class="card-actions justify-end">
                         <button
                           onclick="buy(event, this)"
-                          class="btn btn-primary w-full"
+                          class="btn btn-primary w-full buy-now"
                         >
                           Buy Now
                         </button>
@@ -214,9 +219,14 @@
                         src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                         alt="Shoes"
                       />
-                      <i
-                        class="far fa-heart like-btn absolute top-1 right-1 bg-white/80 backdrop-blur rounded-full p-2 shadow-md hover:bg-white transition"
-                      ></i>
+                      <button
+                        onclick="likedProduct(event, this)"
+                        class="btn liked-btn absolute btn-ghost inline-block top-1 right-1 btn-sm btn-outline"
+                      >
+                        <i
+                          class="far fa-heart like-btn backdrop-blur rounded-full transition"
+                        ></i>
+                      </button>
                     </figure>
                     <div class="card-body">
                       <h2 class="card-title line-clamp-1">Card Title</h2>

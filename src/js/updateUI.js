@@ -14,6 +14,7 @@ const weigth = document.getElementById("weigth");
 const descriptionEl = document.getElementById("product_description");
 const warranty_information = document.getElementById("warranty_information");
 const brend = document.getElementById("brand");
+const imageEl = document.querySelector(".image");
 
 const expensiveTemplate = document.getElementById("expensive-products");
 const expensiveProductsList = document.getElementById(
@@ -37,8 +38,19 @@ function cheapestProducts(products) {
       const priceMonth = clone.querySelector(".price_month");
       const product_description = clone.querySelector(".product_description");
       const productRating = clone.querySelector(".product_rating");
-      const buyButton = clone.querySelector(".btn");
+      const buyButton = clone.querySelector(".buy-now");
       const a = clone.querySelector("a");
+      const likedButton = clone.querySelector(".liked-button");
+      // likedButton.dataset.id = id;
+      let likedProducts = localStorage.getItem("liked-products")
+        ? JSON.parse(localStorage.getItem("liked-products"))
+        : [];
+
+      let item = likedProducts.find((product) => product.id == id);
+      if (item) {
+        likedButton.classList.add("btn-primary");
+        likedButton.classList.remove("btn-outline");
+      }
 
       img.src = thumbnail;
       cardTitle.textContent = title;
@@ -112,6 +124,7 @@ function aboutUI(product) {
 
   const {
     id,
+    thumbnail,
     title,
     description,
     images,
@@ -143,7 +156,7 @@ function aboutUI(product) {
       </div>`;
     });
   } else {
-    console.log("carousel ishlamayapti");
+    imageEl.src = thumbnail;
   }
 }
 
@@ -174,7 +187,11 @@ const template = document.getElementById("card_template");
 const list = document.querySelector(".card_list");
 const card_item = document.querySelector(".card_item");
 
+let likedProducts = localStorage.getItem("products")
+  ? JSON.parse(localStorage.getItem("products"))
+  : [];
 function cardUI(products) {
+  card_item.innerHTML = "";
   products.forEach((item) => {
     const clone = template.content.cloneNode(true);
     const cardImage = clone.querySelector(".card_image");
@@ -182,6 +199,28 @@ function cardUI(products) {
     const cardPrice = clone.querySelector(".card_price");
     const cardBrend = clone.querySelector(".card_brand");
     const cardAmount = clone.querySelector(".card_amount");
+    const amountEl = clone.querySelector(".amount");
+    const incrementAmount = clone.querySelector(".increment-amount");
+    const decrementAmount = clone.querySelector(".decrement-amount");
+    const btnDelete = clone.querySelector(".btn-delete");
+
+    const product = basketproducts.find((p) => p.id == item.id);
+    incrementAmount.addEventListener("click", () => {
+      product.amount += 1;
+      localStorage.setItem("products", JSON.stringify(basketProduct));
+      amountEl.textContent = product.amount;
+    });
+    decrementAmount.addEventListener("click", () => {
+      product.amount -= 1;
+      localStorage.setItem("products", JSON.stringify(basketProduct));
+      amountEl.textContent = product.amount;
+    });
+
+    btnDelete.addEventListener("click", () => {
+      basketProducts = basketProducts.filter((p) => p.id == item.id);
+      localStorage.setItem("products", JSON.stringify(basketProducts));
+      cardUI(basketProducts);
+    });
     const { id, thumbnail, title, price, brand, amount } = item;
     cardImage.src = thumbnail;
     cardTitle.textContent = title;
