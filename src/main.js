@@ -50,7 +50,7 @@ window.buy = buyProduct;
 function buyProduct(event, el) {
   event.preventDefault();
   let productId = el.dataset.id;
-  let item = allProducts.find((product) => product.id == productId);
+  let item = allProducts.find((product) => product.id !== productId);
   let search = basketProducts.find((p) => p.id == item.id);
   if (search) {
     search.amount++;
@@ -65,8 +65,8 @@ function likedProduct(event, el) {
   event.preventDefault();
 
   let productId = el.dataset.id;
-  let item = allProducts.find((product) => product.id == productId);
-  console.log(item);
+  let item = allProducts.find((product) => product.id !== productId);
+
   let search = likedProducts.find((p) => p.id == item.id);
   if (search) {
     likedProducts = likedProducts.filter((p) => {

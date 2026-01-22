@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
@@ -11,6 +11,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="./src/style.css" />
     <title>Saqlanganlar</title>
   </head>
   <body>
@@ -52,18 +53,72 @@
     <!-- HEADER END -->
 
     <!-- MAIN START -->
-    <main>
-      <section>
-        <ul id="product_card">
-          <template id="product_template">
-            <li id="product_list">
-              <img src="" alt="" id="product_image" />
-              <h2 id="product_title"></h2>
-              <p id="product_brand"></p>
-              <p id="product_price"></p>
-            </li>
-          </template>
-        </ul>
+    <main class="main-suggestons">
+      <section class="main-suggestons p-5">
+        <div class="align-elements">
+          <ul
+            id="liked_card"
+            class="grid grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-5"
+          >
+            <template id="liked_template">
+              <li class="popular-products__item cursor-pointer">
+                <a href="">
+                  <div class="card bg-base-100 shadow-sm">
+                    <figure
+                      class="relative bg-gray-200 overflow-hidden rounded-t-xl"
+                    >
+                      <img
+                        id="liked_image"
+                        class="object-cover w-full rounded--xl transition-transform duration-300 hover:scale-105 backgr"
+                        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                        alt="Shoes"
+                      />
+                      <button
+                        onclick="likedProduct(event, this)"
+                        class="btn liked-button absolute btn-ghost inline-block top-1 right-1 btn-sm btn-outline"
+                      >
+                        <i
+                          class="far fa-heart like-btn backdrop-blur rounded-full transition"
+                        ></i>
+                      </button>
+                    </figure>
+                    <div class="card-body">
+                      <h2 id="liked_title" class="card-title line-clamp-1"></h2>
+                      <p id="liked_brand"></p>
+                      <div
+                        class="flex items-center gap-2 text-xl font-semibold"
+                      >
+                        <span id="liked_cart" class="price_cart"></span>
+                        <i class="far fa-credit-card"></i>
+                      </div>
+
+                      <p id="liked_price" class="liked_price"></p>
+                      <p
+                        class="price_month bg-yellow-500 px-2 py-1 inline-block rounded w-25"
+                      ></p>
+                      <p class="product_description line-clamp-2">
+                        A card component has a figure, a body part, and inside
+                        body there are title and actions parts
+                      </p>
+                      <span class="flex items-center gap-1">
+                        <i class="fa-solid fa-star text-yellow-400"></i>
+                        <span class="liked_rating"></span>
+                      </span>
+                      <div class="card-actions justify-end">
+                        <button
+                          onclick="buy(event, this)"
+                          class="btn btn-primary w-full buy-now"
+                        >
+                          Buy Now
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </template>
+          </ul>
+        </div>
       </section>
     </main>
     <!-- MAIN END -->
@@ -104,4 +159,3 @@
     <script type="module" src="/src/likedProducts.js"></script>
   </body>
 </html>
-d

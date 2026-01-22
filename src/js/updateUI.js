@@ -41,7 +41,7 @@ function cheapestProducts(products) {
       const buyButton = clone.querySelector(".buy-now");
       const a = clone.querySelector("a");
       const likedButton = clone.querySelector(".liked-button");
-      // likedButton.dataset.id = id;
+
       let likedProducts = localStorage.getItem("liked-products")
         ? JSON.parse(localStorage.getItem("liked-products"))
         : [];
@@ -94,6 +94,17 @@ function expensiveProducts(products) {
       const productRating = clone.querySelector(".product_rating");
       const buyButton = clone.querySelector(".btn");
       const a = clone.querySelector("a");
+
+      const likedButton = clone.querySelector(".liked-button");
+      let likedProducts = localStorage.getItem("liked-products")
+        ? JSON.parse(localStorage.getItem("liked-products"))
+        : [];
+
+      let item = likedProducts.find((product) => product.id == id);
+      if (item) {
+        likedButton.classList.add("btn-primary");
+        likedButton.classList.remove("btn-outline");
+      }
 
       img.src = thumbnail;
       cardTitle.textContent = title;
@@ -232,24 +243,36 @@ function cardUI(products) {
   });
 }
 
-const producTemplate = document.getElementById("product_template");
+const producTemplate = document.getElementById("liked_template");
 const productList = document.querySelector("#product_list");
-const productCard = document.querySelector("#product_card");
+const productCard = document.querySelector("#liked_card");
 
 function productUI(products) {
   products.forEach((item) => {
     const clone = producTemplate.content.cloneNode(true);
-    const productImage = clone.getElementById("product_image");
-    const productTitle = clone.getElementById("product_title");
-    const productBrand = clone.getElementById("product_brand");
-    const productPrice = clone.getElementById("product_price");
+    const productImage = clone.getElementById("liked_image");
+    const productTitle = clone.getElementById("liked_title");
 
-    const { thumbnail, title, price, brand } = item;
+    const productPrice = clone.getElementById("liked_price");
+    const likedCard = clone.getElementById("liked_cart");
+    const descriptionEl = clone.querySelector(".product_description");
+    const likedRating = clone.querySelector(".liked_rating");
+    const priceMonth = clone.querySelector(".price_month");
+
+    const { thumbnail, title, price, brand, description, rating } = item;
+    console.log(item);
 
     productImage.src = thumbnail;
     productTitle.textContent = title;
-    productBrand.textContent = brand;
-    productPrice.textContent = price;
+
+    productPrice.textContent = calculatePrice(price);
+    likedCard.textContent = calculatePrice(
+      Math.floor(parseFloat(price) * 0.95 * 100) / 100,
+    );
+    priceMonth.textContent =
+      calculatePrice(Math.floor((parseFloat(price) / 12) * 100) / 100) + "/mo";
+    descriptionEl.textContent = description;
+    likedRating.textContent = rating;
 
     productCard.appendChild(clone);
   });
